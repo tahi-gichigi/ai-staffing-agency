@@ -2,27 +2,26 @@
 
 /*
   AI Staffing Agency - Design tokens
-  Aesthetic: Editorial/utilitarian. Clean, professional, high-contrast.
-  Think: The Economist meets a recruitment firm's annual report.
+  Aesthetic: Editorial authority meets recruitment confidence.
+  Think: Monocle magazine designing a staffing firm's site.
+  Warm paper, deep ink, sharp teal accent. Serif headlines
+  that say "we've been doing this for decades" even though
+  the concept is brand new. That's the wink.
 */
 
-@font-face {
-  font-family: 'Instrument Serif';
-  src: url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
-}
-
 :root {
-  /* Colour palette: warm neutrals with a sharp teal accent */
-  --ink: #1a1a1a;
-  --paper: #f8f6f3;
-  --paper-warm: #f0ece4;
+  /* Colour palette: warm neutrals with a confident teal accent */
+  --ink: #1a1a18;
+  --paper: #f7f5f0;
+  --paper-warm: #eee9df;
   --accent: #0d7377;
-  --accent-light: #e8f4f4;
+  --accent-light: #e6f3f3;
   --accent-dark: #095456;
+  --accent-glow: rgba(13, 115, 119, 0.08);
   --muted: #6b6560;
   --muted-light: #9c9590;
   --divider: #d9d4cc;
-  --card-bg: #ffffff;
+  --card-bg: #fffffe;
 
   --background: var(--paper);
   --foreground: var(--ink);
@@ -37,6 +36,7 @@
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
   --color-accent-dark: var(--accent-dark);
+  --color-accent-glow: var(--accent-glow);
   --color-muted: var(--muted);
   --color-muted-light: var(--muted-light);
   --color-divider: var(--divider);
@@ -45,6 +45,7 @@
   --font-serif: var(--font-instrument-serif);
 }
 
+/* Base styles */
 body {
   background: var(--paper);
   color: var(--ink);
@@ -52,23 +53,36 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Utility: editorial horizontal rule */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Editorial horizontal rule with a bit more presence */
 .editorial-rule {
   border: none;
   height: 1px;
   background: var(--divider);
 }
 
-/* Smooth scroll for anchor links */
-html {
-  scroll-behavior: smooth;
+/* Subtle grain texture overlay on body for that printed-paper feel */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
-/* Fade-in animation for sections */
+/* ------------------------------------------------------------------ */
+/* ANIMATIONS                                                          */
+/* ------------------------------------------------------------------ */
+
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(32px);
   }
   to {
     opacity: 1;
@@ -76,24 +90,144 @@ html {
   }
 }
 
-.animate-fade-up {
-  animation: fadeUp 0.7s ease-out forwards;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/* Staggered delays */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes numberPulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.25; }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Staggered delays for choreographed reveals */
 .delay-100 { animation-delay: 0.1s; }
 .delay-200 { animation-delay: 0.2s; }
 .delay-300 { animation-delay: 0.3s; }
 .delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
 
-/* Section reveal on scroll - initially hidden */
+/* Section reveal on scroll */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Staggered children inside revealed sections */
+.reveal.visible .stagger-child {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.reveal.visible .stagger-child:nth-child(1) { animation-delay: 0.05s; }
+.reveal.visible .stagger-child:nth-child(2) { animation-delay: 0.12s; }
+.reveal.visible .stagger-child:nth-child(3) { animation-delay: 0.19s; }
+.reveal.visible .stagger-child:nth-child(4) { animation-delay: 0.26s; }
+.reveal.visible .stagger-child:nth-child(5) { animation-delay: 0.33s; }
+.reveal.visible .stagger-child:nth-child(6) { animation-delay: 0.40s; }
+
+/* ------------------------------------------------------------------ */
+/* CUSTOM COMPONENTS                                                    */
+/* ------------------------------------------------------------------ */
+
+/* Table row hover for comparison table */
+.comparison-row {
+  transition: background-color 0.2s ease;
+}
+.comparison-row:hover {
+  background-color: var(--accent-glow);
+}
+
+/* Quote block with left accent border */
+.quote-block {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.5rem;
+}
+
+/* Role card hover lift */
+.role-card {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.role-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* Step number watermark animation on hover */
+.step-card .step-number {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.step-card:hover .step-number {
+  opacity: 0.3;
+  transform: scale(1.05);
+}
+
+/* Accent link underline animation */
+.accent-link {
+  text-decoration: none;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 0% 1px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+
+.accent-link:hover {
+  background-size: 100% 1px;
+}
+
+/* CTA button shimmer effect */
+.cta-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.cta-btn:hover::after {
+  left: 100%;
+}
+
+/* Nav scroll state */
+.nav-scrolled {
+  border-bottom-color: var(--divider);
+  background: rgba(247, 245, 240, 0.95);
 }

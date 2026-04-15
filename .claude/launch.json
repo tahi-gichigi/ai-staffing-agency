@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ai-staffing-dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev", "--port", "3077"],
+      "port": 3077,
+      "cwd": "/Users/tahi/Local Documents/Coding/ai-staffing-agency"
+    }
+  ]
+}
