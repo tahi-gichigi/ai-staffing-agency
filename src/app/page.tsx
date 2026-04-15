@@ -156,15 +156,15 @@ export default function Home() {
             A new kind of hire
           </p>
           <h1 className="font-serif text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.02] tracking-tight max-w-5xl mb-8">
-            We don&rsquo;t sell AI&nbsp;tools.
+            Your next hire isn&rsquo;t&nbsp;human.
             <br />
-            <em className="text-accent">We staff&nbsp;AI.</em>
+            <em className="text-accent">And that&rsquo;s a&nbsp;good&nbsp;thing.</em>
           </h1>
           <p className="text-lg md:text-xl text-muted max-w-2xl leading-relaxed mb-12">
-            Digital employees for accounting, legal, and property management
-            firms. Not another dashboard you&rsquo;ll forget to check. A new
-            team member that handles the work your juniors do today -
-            faster, cheaper, without the admin.
+            We place AI employees in accounting, legal, and property management
+            firms. They chase missing receipts, reconcile bank statements, triage
+            intake documents, and respond to leads. The work your juniors spend
+            all day on, done faster, at a fraction of the cost.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
@@ -206,27 +206,27 @@ export default function Home() {
       <Section id="problem">
         <Label>The problem</Label>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight max-w-3xl mb-6">
-          Your tools find the gaps.{" "}
-          <span className="text-muted-light">Nobody closes them.</span>
+          You have the tools.{" "}
+          <span className="text-muted-light">You still need the people.</span>
         </h2>
         <p className="text-muted text-lg max-w-2xl leading-relaxed mb-12">
-          You already use Dext, Hubdoc, maybe AutoEntry. They capture receipts
-          and push data to Xero. The structured part is handled.
+          Dext captures receipts. Xero runs the ledger. The structured part
+          is handled. So why are you still hiring juniors at 22-28k a year?
         </p>
 
         <div className="grid md:grid-cols-2 gap-12 md:gap-16">
           <div className="space-y-6 text-muted leading-relaxed">
             <p>
-              But your firm still hires juniors at 22-28k a year. Because
-              someone has to chase the missing receipt. Someone has to figure out
-              that &ldquo;AMZN*2847XJ&rdquo; is actually an Amazon Web Services
-              charge. Someone has to send the WhatsApp, wait, follow up, wait
-              again.
+              Because someone still has to chase the missing receipt. Someone
+              has to figure out that &ldquo;AMZN*2847XJ&rdquo; is actually
+              Amazon Web Services. Someone has to send the WhatsApp, wait a
+              week, follow up, wait again.
             </p>
             <p>
-              The tools handle the clean work. The messy, unstructured work -
-              the chasing, the judgement calls, context switching between 15
-              clients - that still falls on people.
+              Your tools handle the clean work. The messy part - chasing
+              clients, making judgement calls, switching between 15 different
+              sets of quirks - that still falls on your team. And it takes
+              most of their day.
             </p>
           </div>
           <div className="relative">
@@ -236,13 +236,13 @@ export default function Home() {
                 70%
               </p>
               <p className="text-sm text-muted leading-relaxed max-w-xs">
-                of a junior bookkeeper&rsquo;s time goes to chasing, not
-                processing. That&rsquo;s the gap between &ldquo;tool found a
-                problem&rdquo; and &ldquo;problem actually resolved&rdquo;.
+                of a junior bookkeeper&rsquo;s week is spent chasing, not
+                processing. That&rsquo;s the gap between &ldquo;Dext flagged
+                a problem&rdquo; and &ldquo;problem actually resolved&rdquo;.
               </p>
               <div className="mt-6 pt-6 border-t border-divider">
                 <p className="text-ink font-medium text-sm">
-                  We close that gap.
+                  That&rsquo;s the work we replace.
                 </p>
               </div>
             </div>
@@ -256,33 +256,33 @@ export default function Home() {
       {/* OUR APPROACH                                                 */}
       {/* ---------------------------------------------------------- */}
       <Section id="approach">
-        <Label>Our approach</Label>
+        <Label>What you get</Label>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight max-w-3xl mb-6">
-          A role, not a tool.
+          Not software. A&nbsp;team&nbsp;member.
         </h2>
         <p className="text-lg text-muted max-w-2xl leading-relaxed mb-14">
-          We frame AI as an employee, not a product. &ldquo;AI Bookkeeper&rdquo;
-          beats &ldquo;invoice chatbot&rdquo; because your clients already know
-          what a bookkeeper does. The question shifts from &ldquo;what does this
-          do?&rdquo; to &ldquo;how much cheaper is this than a person?&rdquo;
+          You know what a bookkeeper does. You know what a paralegal does. Our
+          AI employees do the same things, just faster, cheaper, and without
+          sick days. Think of it less like buying software, more like hiring
+          someone who never sleeps.
         </p>
 
         <div className="grid sm:grid-cols-3 gap-6">
           {[
             {
               number: "01",
-              title: "Closing, not finding",
-              body: "Most tools detect gaps. Our AI closes them: drafting the follow-up, sending the reminder, processing the reply.",
+              title: "Does the work, not just the flagging",
+              body: "Your current tools spot the missing receipt. Our AI chases it: drafts the message, sends it, processes the reply when it arrives.",
             },
             {
               number: "02",
-              title: "Dialogue over dashboards",
-              body: "Works where your team already works: email, WhatsApp, spreadsheets. No new login. No new interface.",
+              title: "Works where you work",
+              body: "Email, WhatsApp, spreadsheets. No new dashboard. No new login. Your AI employee slots into your existing workflow.",
             },
             {
               number: "03",
-              title: "Bespoke to the mess",
-              body: "Tuned to your edge cases. Construction site receipts. Vendor naming quirks. Multi-invoice payments. The stuff that actually takes time.",
+              title: "Trained on your mess",
+              body: "Every firm has quirks. Construction site receipts. Vendors with confusing names. One payment covering three invoices. We tune the AI to handle yours.",
             },
           ].map((item) => (
             <div
@@ -305,13 +305,13 @@ export default function Home() {
       {/* ROLE CATALOGUE                                               */}
       {/* ---------------------------------------------------------- */}
       <Section id="roles">
-        <Label>Role catalogue</Label>
+        <Label>Who we place</Label>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight max-w-3xl mb-4">
-          Three roles. Three industries.
+          Three roles you can hire today.
         </h2>
         <p className="text-muted text-lg max-w-2xl leading-relaxed mb-12">
-          Each role is built for a specific professional services context.
-          Accounting first, then legal and property management.
+          Each AI employee is built for a specific type of firm. Pick the
+          role that matches your biggest time drain.
         </p>
 
         <div className="space-y-6">
@@ -329,16 +329,16 @@ export default function Home() {
                   </span>
                 </div>
                 <p className="text-sm text-muted mb-6">
-                  For accounting firms in Belfast and Lisbon
+                  Replaces your junior bookkeeper. For accounting firms in Belfast and Lisbon.
                 </p>
                 <div className="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
                   {[
-                    "Reconciles bank statements against invoices",
-                    "Detects gaps: charges with no matching receipt",
-                    "Chases missing documents via WhatsApp and email",
-                    "Handles messy data: multi-invoice payments, naming quirks",
-                    "Flags duplicates, anomalies, and spending patterns",
-                    "Produces clean reconciliation reports",
+                    "Matches bank statements against invoices automatically",
+                    "Spots missing receipts and chases them via WhatsApp and email",
+                    "Handles the messy stuff: partial payments, vendor name mismatches",
+                    "Catches duplicates and anomalies before they become problems",
+                    "Delivers clean reconciliation reports, ready for your review",
+                    "Works across all your clients without context-switching fatigue",
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">
                       <Check />
@@ -359,14 +359,14 @@ export default function Home() {
               <div className="flex-1">
                 <h3 className="font-semibold text-xl mb-1">AI Paralegal</h3>
                 <p className="text-sm text-muted mb-6">
-                  For law firms in Belfast and Lisbon
+                  Frees up your partner time. For law firms in Belfast and Lisbon.
                 </p>
                 <div className="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
                   {[
-                    "Filters and triages intake documents",
-                    "Extracts dates, parties, and clauses from messy uploads",
-                    "Summarises 20-page PDFs into structured 5-point briefs",
-                    "Converts unstructured documents to usable spreadsheets",
+                    "Triages new intake so your partners only see what matters",
+                    "Pulls dates, parties, and key clauses from messy client uploads",
+                    "Turns 20-page PDFs into structured 5-point briefs",
+                    "Converts unstructured documents into clean, usable spreadsheets",
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">
                       <Check />
@@ -389,14 +389,14 @@ export default function Home() {
                   AI Leasing Agent
                 </h3>
                 <p className="text-sm text-muted mb-6">
-                  For property management in Lisbon
+                  Stops leads slipping through the cracks. For property management in Lisbon.
                 </p>
                 <div className="grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
                   {[
-                    "Qualifies leads in any language: first 5 rounds of FAQs handled",
-                    "Schedules viewings with calendar integration",
-                    "Responds instantly to every inquiry, any time zone",
-                    "Eliminates lead leakage from slow manual follow-up",
+                    "Answers every enquiry instantly, in any language, any time zone",
+                    "Handles the first 5 rounds of FAQs before your team gets involved",
+                    "Books viewings directly into your calendar",
+                    "No more lost leads because someone was too slow to reply",
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">
                       <Check />
@@ -418,11 +418,12 @@ export default function Home() {
       <Section id="how-it-works">
         <Label>How it works</Label>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight max-w-3xl mb-6">
-          The probation model.
+          Try before you hire.
         </h2>
         <p className="text-lg text-muted max-w-2xl leading-relaxed mb-16">
           We know this sounds unusual. So we make it zero risk. Your AI
-          employee starts on probation, just like any new hire.
+          employee starts on probation, just like any new hire. No commitment
+          until you&rsquo;ve seen the results.
         </p>
 
         <div className="grid md:grid-cols-4 gap-8 md:gap-6">
@@ -430,22 +431,22 @@ export default function Home() {
             {
               step: "1",
               title: "Shadow",
-              body: "The AI runs alongside your team. It observes everything and produces a weekly report: what it found, what it would have done. Zero client exposure.",
+              body: "Your AI employee works alongside your team for the first few weeks. It processes everything your junior does and produces a weekly report. No client exposure.",
             },
             {
               step: "2",
               title: "Compare",
-              body: "Your accountant compares AI output against the junior. Accuracy, speed, gaps caught. Hard numbers, not promises.",
+              body: "You compare the AI's output against your team's. What it caught, what it missed, how long it took. Real numbers from your real data.",
             },
             {
               step: "3",
               title: "Promote",
-              body: "If the AI earns trust over 4-8 weeks, it graduates from observer to active employee. Starts handling real work.",
+              body: "Once you trust the output (usually 4-8 weeks), the AI moves from observer to active team member and starts handling real work.",
             },
             {
               step: "4",
               title: "Scale",
-              body: "One role proven, we add more. AI Bookkeeper today, AI Credit Controller next month. Build a digital back office.",
+              body: "One role proven, we add more. Start with an AI Bookkeeper, add an AI Credit Controller next quarter. Build your digital back office.",
             },
           ].map((item) => (
             <div key={item.step} className="step-card relative stagger-child opacity-0">
@@ -465,8 +466,8 @@ export default function Home() {
         {/* Quote block */}
         <div className="mt-16 quote-block">
           <p className="font-serif text-xl md:text-2xl text-ink leading-snug max-w-2xl">
-            &ldquo;Let us shadow your junior for a month. Compare our output. If
-            we&rsquo;re not better, you&rsquo;ve lost nothing.&rdquo;
+            &ldquo;Let us shadow your junior for a month. Compare our work against
+            theirs. If we&rsquo;re not better, you&rsquo;ve lost nothing.&rdquo;
           </p>
         </div>
       </Section>
@@ -477,14 +478,14 @@ export default function Home() {
       {/* WHY NOT JUST USE [TOOL]                                      */}
       {/* ---------------------------------------------------------- */}
       <Section id="differentiators">
-        <Label>Why not just use Dext?</Label>
+        <Label>But I already use Dext</Label>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight max-w-3xl mb-4">
-          Tools find the gap.{" "}
-          <em className="text-accent">We close it.</em>
+          Good. Keep it.{" "}
+          <em className="text-accent">We pick up where it stops.</em>
         </h2>
         <p className="text-muted text-lg max-w-2xl leading-relaxed mb-12">
-          Every firm has access to Dext, Hubdoc, AutoEntry. They work. You still
-          hire juniors. Here is why.
+          Dext, Hubdoc, AutoEntry - they&rsquo;re great at capturing documents. But
+          you still hire juniors. Here&rsquo;s what those tools don&rsquo;t do.
         </p>
 
         <div className="overflow-x-auto -mx-6 px-6">
@@ -495,39 +496,39 @@ export default function Home() {
                   &nbsp;
                 </th>
                 <th className="text-left py-4 px-4 font-semibold text-muted-light">
-                  Dext / Hubdoc / AutoEntry
+                  Your current tools
                 </th>
                 <th className="text-left py-4 px-4 font-semibold text-accent">
-                  AI Staffing Agency
+                  Your AI employee
                 </th>
               </tr>
             </thead>
             <tbody className="text-muted">
               {[
                 [
-                  "Missing documents",
-                  "Flags it. You write the email.",
-                  "Drafts, sends, follows up, closes the loop.",
+                  "Missing receipt",
+                  "Flags it. You still write the email.",
+                  "Drafts the chase, sends it, processes the reply.",
                 ],
                 [
-                  "Ambiguous matches",
+                  "Confusing match",
                   "Matched or unmatched. No middle ground.",
-                  "Uses context to make judgement calls, like a junior.",
+                  "Uses context to make the call, like a good junior.",
                 ],
                 [
-                  "Messy data",
-                  "Needs clean, standard documents.",
-                  "Handles construction receipts, photos, odd formats.",
+                  "Messy documents",
+                  "Needs clean, standard formats.",
+                  "Handles crumpled receipts, photos, odd layouts.",
                 ],
                 [
-                  "Proactive patterns",
-                  "No alerts for upcoming deadlines or anomalies.",
-                  "Spots trends, flags risks, anticipates deadlines.",
+                  "Upcoming deadlines",
+                  "No alerts. You track them yourself.",
+                  "Spots patterns, flags risks, reminds you before it's late.",
                 ],
                 [
-                  "Where it works",
+                  "Where you use it",
                   "Inside its own dashboard.",
-                  "Email, WhatsApp, spreadsheets. Wherever you are.",
+                  "Email, WhatsApp, spreadsheets. Wherever you already work.",
                 ],
               ].map((row, i) => (
                 <tr key={i} className="comparison-row border-b border-divider">
@@ -549,11 +550,12 @@ export default function Home() {
       <Section id="contact" className="text-center">
         <Label>Get started</Label>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight max-w-2xl mx-auto mb-6">
-          Ready to meet your first AI&nbsp;employee?
+          See it work on your&nbsp;data.
         </h2>
         <p className="text-lg text-muted max-w-xl mx-auto leading-relaxed mb-10">
-          No commitment. No setup fee during probation. We shadow your team,
-          prove the value, and you decide.
+          No commitment. No setup fee during probation. We run alongside your
+          team, prove the value on your actual work, and you decide whether
+          to hire.
         </p>
         <a
           href="mailto:tahi@mooch.work?subject=AI%20Staffing%20Agency%20-%20Let%27s%20talk"
