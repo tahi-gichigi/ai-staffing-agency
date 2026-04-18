@@ -233,12 +233,12 @@ export default function Home() {
             {/* Stylised stat callout */}
             <div className="bg-card-bg rounded-2xl border border-divider/60 p-8 md:p-10">
               <p className="font-serif text-4xl md:text-5xl text-accent mb-3 leading-none">
-                70%
+                30+ hrs
               </p>
               <p className="text-sm text-muted leading-relaxed max-w-xs">
-                of a junior bookkeeper&rsquo;s week is spent chasing, not
-                processing. That&rsquo;s the gap between &ldquo;Dext flagged
-                a problem&rdquo; and &ldquo;problem actually resolved&rdquo;.
+                per month lost to document chasing. That&rsquo;s the gap
+                between &ldquo;Dext flagged a problem&rdquo; and
+                &ldquo;problem actually resolved&rdquo;.
               </p>
               <div className="mt-6 pt-6 border-t border-divider">
                 <p className="text-ink font-medium text-sm">
