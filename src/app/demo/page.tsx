@@ -137,7 +137,7 @@ function DemoBadge({ compact = false }: { compact?: boolean }) {
   return (
     <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-semibold tracking-[0.14em] sm:tracking-[0.18em] uppercase text-accent bg-accent-light px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full whitespace-nowrap">
       <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block flex-shrink-0" />
-      <span className={compact ? "hidden sm:inline" : ""}>Demo - fixtures only</span>
+      <span className={compact ? "hidden sm:inline" : ""}>Demo · fixtures only</span>
       <span className={compact ? "sm:hidden" : "hidden"}>Demo</span>
     </span>
   );
