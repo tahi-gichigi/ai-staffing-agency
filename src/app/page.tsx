@@ -162,9 +162,10 @@ export default function Home() {
           </h1>
           <p className="text-lg md:text-xl text-muted max-w-2xl leading-relaxed mb-12">
             We place AI employees in accounting, legal, and property management
-            firms. They chase missing receipts, reconcile bank statements, triage
-            intake documents, and respond to leads. The work your juniors spend
-            all day on, done faster, at a fraction of the cost.
+            firms. They reconcile bank statements, handle ledger data entry,
+            chase missing receipts, and triage intake documents. The job your
+            juniors do, at a fraction of the cost - and without NI, pension,
+            or sick days.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
@@ -223,10 +224,10 @@ export default function Home() {
               week, follow up, wait again.
             </p>
             <p>
-              Your tools handle the clean work. The messy part - chasing
-              clients, making judgement calls, switching between 15 different
-              sets of quirks - that still falls on your team. And it takes
-              most of their day.
+              Your tools handle the clean work. The rest - reconciling
+              accounts, chasing clients, making judgement calls, switching
+              between 15 different sets of client quirks - still falls on
+              your team. And it adds up fast.
             </p>
           </div>
           <div className="relative">
@@ -263,8 +264,8 @@ export default function Home() {
         <p className="text-lg text-muted max-w-2xl leading-relaxed mb-14">
           You know what a bookkeeper does. You know what a paralegal does. Our
           AI employees do the same things, just faster, cheaper, and without
-          sick days. Think of it less like buying software, more like hiring
-          someone who never sleeps.
+          the NI, pension, or sick days. Think of it less like buying
+          software, more like hiring someone who never sleeps.
         </p>
 
         <div className="grid sm:grid-cols-3 gap-6">
