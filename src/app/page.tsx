@@ -163,8 +163,8 @@ export default function Home() {
           <p className="text-lg md:text-xl text-muted max-w-2xl leading-relaxed mb-12">
             We place AI employees in accounting, legal, and property management
             firms. They reconcile bank statements, handle ledger data entry,
-            chase missing receipts, and triage intake documents. The job your
-            juniors do, at a fraction of the cost - and without NI, pension,
+            chase missing receipts, and triage intake documents: everything
+            your junior does, at a fraction of the cost, without NI, pension,
             or sick days.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
