@@ -313,9 +313,9 @@ export default function Home() {
           <span className="text-muted-light">Ready to start.</span>
         </h2>
         <p className="text-muted text-lg max-w-2xl leading-relaxed mb-12">
-          Each AI employee is scoped to a specific role in a specific type of
-          firm - the same way you&rsquo;d write a job description before
-          hiring.
+          A bookkeeper who reconciles your accounts. A paralegal who triages
+          your intake. A leasing agent who never misses an enquiry. Pick the
+          role that matches your workload.
         </p>
 
         <div className="space-y-6">
@@ -450,7 +450,7 @@ export default function Home() {
             {
               step: "4",
               title: "Scale",
-              body: "One role proven, you add more. Start with an AI Bookkeeper, bring on an AI Credit Controller next quarter. Build out your back office without building out your headcount.",
+              body: "One role proven, you add more. Start with an AI Bookkeeper, bring on an AI Credit Controller next quarter, then a document processor the quarter after.",
             },
           ].map((item) => (
             <div key={item.step} className="step-card relative stagger-child opacity-0">
