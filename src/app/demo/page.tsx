@@ -216,9 +216,7 @@ function WorkspaceScreen({ onRun }: { onRun: () => void }) {
 
       {/* Action bar */}
       <div className="mt-10 pt-6 border-t border-divider flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <p className="text-sm text-muted">
-          Ready to reconcile. Runs in under 30 seconds.
-        </p>
+        <p className="text-sm text-muted">Last run: never</p>
         <button
           onClick={onRun}
           className="cta-btn inline-flex items-center justify-center h-12 px-8 rounded-full bg-accent text-white font-medium hover:bg-accent-dark transition-colors text-base w-full sm:w-auto"
@@ -571,8 +569,7 @@ function ResultsScreen({ onRestart }: { onRestart: () => void }) {
   const summary = [
     { n: MATCHES.length, l: "Matched" },
     { n: GAPS.length, l: "Chases drafted" },
-    { n: FLAGS.filter((f) => f.kind === "Duplicate").length, l: "Duplicate" },
-    { n: FLAGS.filter((f) => f.kind === "Anomaly").length, l: "Anomaly" },
+    { n: FLAGS.length, l: "Needs review" },
   ];
 
   return (
@@ -595,7 +592,7 @@ function ResultsScreen({ onRestart }: { onRestart: () => void }) {
       </div>
 
       {/* Summary counts */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
+      <div className="grid grid-cols-3 gap-3 mb-10">
         {summary.map((s) => (
           <div key={s.l} className="bg-card-bg rounded-xl border border-divider/60 px-4 py-4">
             <p className="font-serif text-3xl text-accent leading-none mb-1 tabular-nums">{s.n}</p>
@@ -675,20 +672,12 @@ function ResultsScreen({ onRestart }: { onRestart: () => void }) {
       {/* Footer actions */}
       <div className="mt-10 pt-6 border-t border-divider flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <p className="text-sm text-muted">Export to your ledger or start a new reconciliation.</p>
-        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-          <button
-            onClick={onRestart}
-            className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-divider text-ink font-medium hover:border-ink transition-colors text-sm"
-          >
-            Start over
-          </button>
-          <a
-            href="/#contact"
-            className="cta-btn inline-flex items-center justify-center h-11 px-6 rounded-full bg-accent text-white font-medium hover:bg-accent-dark transition-colors text-sm"
-          >
-            Start a conversation
-          </a>
-        </div>
+        <button
+          onClick={onRestart}
+          className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-divider text-ink font-medium hover:border-ink transition-colors text-sm"
+        >
+          Start over
+        </button>
       </div>
     </div>
   );
