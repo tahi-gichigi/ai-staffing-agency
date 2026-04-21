@@ -670,14 +670,20 @@ function ResultsScreen({ onRestart }: { onRestart: () => void }) {
       </Section>
 
       {/* Footer actions */}
-      <div className="mt-10 pt-6 border-t border-divider flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <p className="text-sm text-muted">Export to your ledger or start a new reconciliation.</p>
+      <div className="mt-10 pt-6 border-t border-divider flex flex-col sm:flex-row items-center justify-between gap-4">
         <button
           onClick={onRestart}
-          className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-divider text-ink font-medium hover:border-ink transition-colors text-sm"
+          className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-divider text-ink font-medium hover:border-ink transition-colors text-sm order-2 sm:order-1"
         >
           Start over
         </button>
+        {/* Primary CTA - shown after user has seen the full demo */}
+        <a
+          href="mailto:tahi@mooch.agency?subject=AI%20Staffing%20Agency%20-%20Let%27s%20talk"
+          className="inline-flex items-center justify-center h-11 px-8 rounded-full bg-accent text-white font-medium hover:bg-accent-dark transition-colors text-sm w-full sm:w-auto order-1 sm:order-2"
+        >
+          Get in touch
+        </a>
       </div>
     </div>
   );

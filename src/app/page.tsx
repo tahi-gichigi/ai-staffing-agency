@@ -564,7 +564,7 @@ export default function Home() {
           them.
         </p>
         <a
-          href="mailto:tahi@mooch.work?subject=AI%20Staffing%20Agency%20-%20Let%27s%20talk"
+          href="mailto:tahi@mooch.agency?subject=AI%20Staffing%20Agency%20-%20Let%27s%20talk"
           className="cta-btn inline-flex items-center justify-center h-14 px-10 rounded-full bg-accent text-white font-medium text-lg hover:bg-accent-dark transition-colors"
         >
           Start a conversation
@@ -572,10 +572,10 @@ export default function Home() {
         <p className="text-sm text-muted-light mt-6">
           Or email us directly at{" "}
           <a
-            href="mailto:tahi@mooch.work"
+            href="mailto:tahi@mooch.agency"
             className="text-accent accent-link"
           >
-            tahi@mooch.work
+            tahi@mooch.agency
           </a>
         </p>
       </Section>
