@@ -134,6 +134,12 @@ export default function Home() {
               Roles
             </a>
             <a
+              href="/demo"
+              className="hidden md:inline text-sm text-accent font-medium hover:text-accent-dark transition-colors accent-link"
+            >
+              See the demo
+            </a>
+            <a
               href="#contact"
               className="inline-flex items-center h-9 px-5 rounded-full bg-ink text-paper text-sm font-medium hover:bg-accent transition-colors"
             >
@@ -174,25 +180,10 @@ export default function Home() {
               Start a conversation
             </a>
             <a
-              href="#how-it-works"
-              className="inline-flex items-center justify-center h-13 px-9 rounded-full border border-divider text-ink font-medium hover:border-ink transition-colors text-base group"
+              href="/demo"
+              className="inline-flex items-center justify-center h-13 px-9 rounded-full border border-divider text-ink font-medium hover:border-ink transition-colors text-base"
             >
-              How it works
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                className="ml-2 transition-transform group-hover:translate-y-0.5"
-              >
-                <path
-                  d="M8 3v10M4 9l4 4 4-4"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              See the demo
             </a>
           </div>
         </div>
