@@ -483,14 +483,14 @@ export default function Home() {
       {/* WHY NOT JUST USE [TOOL]                                      */}
       {/* ---------------------------------------------------------- */}
       <Section id="differentiators">
-        <Label>Already using Dext?</Label>
+        <Label>After capture</Label>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight max-w-3xl mb-4">
-          Good. Keep it.{" "}
-          <em className="text-accent">We pick up where it stops.</em>
+          Keep Dext.{" "}
+          <em className="text-accent">We handle what comes after.</em>
         </h2>
         <p className="text-muted text-lg max-w-2xl leading-relaxed mb-12">
           Capture tools handle the structured part. Your AI employee handles
-          everything after - the chasing, the matching, the judgement calls
+          everything else: the chasing, the matching, the judgement calls
           your tools can&rsquo;t make.
         </p>
 
