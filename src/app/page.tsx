@@ -162,10 +162,9 @@ export default function Home() {
           </h1>
           <p className="text-lg md:text-xl text-muted max-w-2xl leading-relaxed mb-12">
             We place AI employees in accounting, legal, and property management
-            firms. They reconcile bank statements, handle ledger data entry,
-            chase missing receipts, and triage intake documents: everything
-            your junior does, at a fraction of the cost, without NI, pension,
-            or sick days.
+            firms. They reconcile bank statements, chase missing receipts,
+            handle ledger data entry, and triage intake documents - at a
+            fraction of the cost, without NI, pension, or sick days.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
@@ -207,27 +206,29 @@ export default function Home() {
       <Section id="problem">
         <Label>The problem</Label>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight max-w-3xl mb-6">
-          You have the tools.{" "}
-          <span className="text-muted-light">You still need the people.</span>
+          Your tools are smart.{" "}
+          <span className="text-muted-light">The follow-up still isn&rsquo;t.</span>
         </h2>
         <p className="text-muted text-lg max-w-2xl leading-relaxed mb-12">
-          Dext captures receipts. Xero runs the ledger. The structured part
-          is handled. So why are you still hiring juniors at 22-28k a year?
+          Dext captures the receipt. Xero posts the entry. But between
+          &ldquo;flagged&rdquo; and &ldquo;resolved&rdquo;, there&rsquo;s
+          still a person writing emails, chasing clients, and making
+          judgement calls.
         </p>
 
         <div className="grid md:grid-cols-2 gap-12 md:gap-16">
           <div className="space-y-6 text-muted leading-relaxed">
             <p>
-              Because someone still has to chase the missing receipt. Someone
-              has to figure out that &ldquo;AMZN*2847XJ&rdquo; is actually
-              Amazon Web Services. Someone has to send the WhatsApp, wait a
-              week, follow up, wait again.
+              Someone has to figure out that &ldquo;AMZN*2847XJ&rdquo; is
+              actually Amazon Web Services. Someone has to send the WhatsApp,
+              wait a week, follow up, wait again. Someone has to remember
+              that Client B always pays 3 invoices in 1 transfer.
             </p>
             <p>
-              Your tools handle the clean work. The rest - reconciling
-              accounts, chasing clients, making judgement calls, switching
-              between 15 different sets of client quirks - still falls on
-              your team. And it adds up fast.
+              That in-between work - the chasing, the matching, the context
+              switching across 15 sets of client quirks - is where your
+              junior&rsquo;s week actually goes. And at 22-28k a year,
+              it&rsquo;s expensive for what it is.
             </p>
           </div>
           <div className="relative">
@@ -237,13 +238,13 @@ export default function Home() {
                 30+ hrs
               </p>
               <p className="text-sm text-muted leading-relaxed max-w-xs">
-                per month lost to document chasing. That&rsquo;s the gap
-                between &ldquo;Dext flagged a problem&rdquo; and
-                &ldquo;problem actually resolved&rdquo;.
+                per month spent chasing documents, matching transactions, and
+                following up with clients who haven&rsquo;t replied.
               </p>
               <div className="mt-6 pt-6 border-t border-divider">
                 <p className="text-ink font-medium text-sm">
-                  That&rsquo;s the work we replace.
+                  That&rsquo;s 30 hours your senior staff aren&rsquo;t
+                  spending on advisory work.
                 </p>
               </div>
             </div>
@@ -262,10 +263,10 @@ export default function Home() {
           Not software. A&nbsp;team&nbsp;member.
         </h2>
         <p className="text-lg text-muted max-w-2xl leading-relaxed mb-14">
-          You know what a bookkeeper does. You know what a paralegal does. Our
-          AI employees do the same things, just faster, cheaper, and without
-          the NI, pension, or sick days. Think of it less like buying
-          software, more like hiring someone who never sleeps.
+          You don&rsquo;t need another dashboard. You need someone to do the
+          work your junior does - chase the receipt, match the transaction,
+          send the follow-up - without the salary, the training, or the
+          turnover.
         </p>
 
         <div className="grid sm:grid-cols-3 gap-6">
@@ -273,17 +274,17 @@ export default function Home() {
             {
               number: "01",
               title: "Does the work, not just the flagging",
-              body: "Your current tools spot the missing receipt. Our AI chases it: drafts the message, sends it, processes the reply when it arrives.",
+              body: "Your tools spot the missing receipt. Your AI employee chases it - drafts the message, sends it, processes the reply when it arrives.",
             },
             {
               number: "02",
-              title: "Works where you work",
-              body: "Email, WhatsApp, spreadsheets. No new dashboard. No new login. Your AI employee slots into your existing workflow.",
+              title: "Sits inside your workflow",
+              body: "Email, WhatsApp, spreadsheets. No new dashboard to check. No new login to remember. They work where your team already works.",
             },
             {
               number: "03",
-              title: "Trained on your mess",
-              body: "Every firm has quirks. Construction site receipts. Vendors with confusing names. One payment covering three invoices. We tune the AI to handle yours.",
+              title: "Learns your clients' quirks",
+              body: "Construction site receipts. Vendors with confusing names. One payment covering 3 invoices. We train your AI employee on the messy reality of your specific firm.",
             },
           ].map((item) => (
             <div
@@ -308,11 +309,13 @@ export default function Home() {
       <Section id="roles">
         <Label>Who we place</Label>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight max-w-3xl mb-4">
-          Three roles you can hire today.
+          Trained for your industry.{" "}
+          <span className="text-muted-light">Ready to start.</span>
         </h2>
         <p className="text-muted text-lg max-w-2xl leading-relaxed mb-12">
-          Each AI employee is built for a specific type of firm. Pick the
-          role that matches your biggest time drain.
+          Each AI employee is scoped to a specific role in a specific type of
+          firm - the same way you&rsquo;d write a job description before
+          hiring.
         </p>
 
         <div className="space-y-6">
@@ -419,12 +422,12 @@ export default function Home() {
       <Section id="how-it-works">
         <Label>How it works</Label>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight max-w-3xl mb-6">
-          Try before you hire.
+          Probation first. Commitment later.
         </h2>
         <p className="text-lg text-muted max-w-2xl leading-relaxed mb-16">
-          We know this sounds unusual. So we make it zero risk. Your AI
-          employee starts on probation, just like any new hire. No commitment
-          until you&rsquo;ve seen the results.
+          Your AI employee starts the same way any new hire would - on
+          probation. They shadow your team, you review their output, and
+          you only promote them to live work once you&rsquo;re satisfied.
         </p>
 
         <div className="grid md:grid-cols-4 gap-8 md:gap-6">
@@ -432,22 +435,22 @@ export default function Home() {
             {
               step: "1",
               title: "Shadow",
-              body: "Your AI employee works alongside your team for the first few weeks. It processes everything your junior does and produces a weekly report. No client exposure.",
+              body: "Your AI employee works alongside your team for the first few weeks. They process everything your junior does and produce a weekly report. No client exposure yet.",
             },
             {
               step: "2",
               title: "Compare",
-              body: "You compare the AI's output against your team's. What it caught, what it missed, how long it took. Real numbers from your real data.",
+              body: "You compare their output against your team's. What they caught, what they missed, how long it took. Real numbers from your real data.",
             },
             {
               step: "3",
               title: "Promote",
-              body: "Once you trust the output (usually 4-8 weeks), the AI moves from observer to active team member and starts handling real work.",
+              body: "Once you trust the output - usually 4 to 8 weeks - your AI employee moves from observer to active team member handling real work.",
             },
             {
               step: "4",
               title: "Scale",
-              body: "One role proven, we add more. Start with an AI Bookkeeper, add an AI Credit Controller next quarter. Build your digital back office.",
+              body: "One role proven, you add more. Start with an AI Bookkeeper, bring on an AI Credit Controller next quarter. Build out your back office without building out your headcount.",
             },
           ].map((item) => (
             <div key={item.step} className="step-card relative stagger-child opacity-0">
@@ -467,8 +470,9 @@ export default function Home() {
         {/* Quote block */}
         <div className="mt-16 quote-block">
           <p className="font-serif text-xl md:text-2xl text-ink leading-snug max-w-2xl">
-            &ldquo;Let us shadow your junior for a month. Compare our work against
-            theirs. If we&rsquo;re not better, you&rsquo;ve lost nothing.&rdquo;
+            &ldquo;Let us shadow your junior for a month. Compare our work
+            against theirs. If we&rsquo;re not better, you&rsquo;ve lost
+            nothing.&rdquo;
           </p>
         </div>
       </Section>
@@ -479,14 +483,15 @@ export default function Home() {
       {/* WHY NOT JUST USE [TOOL]                                      */}
       {/* ---------------------------------------------------------- */}
       <Section id="differentiators">
-        <Label>But I already use Dext</Label>
+        <Label>Already using Dext?</Label>
         <h2 className="font-serif text-3xl md:text-5xl leading-tight tracking-tight max-w-3xl mb-4">
           Good. Keep it.{" "}
           <em className="text-accent">We pick up where it stops.</em>
         </h2>
         <p className="text-muted text-lg max-w-2xl leading-relaxed mb-12">
-          Dext, Hubdoc, AutoEntry - they&rsquo;re great at capturing documents. But
-          you still hire juniors. Here&rsquo;s what those tools don&rsquo;t do.
+          Capture tools handle the structured part. Your AI employee handles
+          everything after - the chasing, the matching, the judgement calls
+          your tools can&rsquo;t make.
         </p>
 
         <div className="overflow-x-auto -mx-6 px-6">
@@ -554,9 +559,9 @@ export default function Home() {
           See it work on your&nbsp;data.
         </h2>
         <p className="text-lg text-muted max-w-xl mx-auto leading-relaxed mb-10">
-          No commitment. No setup fee during probation. We run alongside your
-          team, prove the value on your actual work, and you decide whether
-          to hire.
+          No commitment. No setup fee during probation. Your AI employee
+          shadows your team on real work, and you decide whether to hire
+          them.
         </p>
         <a
           href="mailto:tahi@mooch.work?subject=AI%20Staffing%20Agency%20-%20Let%27s%20talk"
