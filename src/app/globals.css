@@ -23,6 +23,11 @@
   --divider: #d9d4cc;
   --card-bg: #fffffe;
 
+  /* Alert palette (Alt C SLA timers, blocked, overdue) */
+  --alert-soft: #fbeede;
+  --alert-line: #e9c39a;
+  --alert-ink: #8a4a1a;
+
   --background: var(--paper);
   --foreground: var(--ink);
 }
@@ -401,6 +406,13 @@ body::before {
   transition-timing-function: var(--vt-ease);
 }
 .pressable:active { transform: scale(0.98); }
+
+/* Done-state strike-through with friendlier weight (Alt C) */
+.line-through-friendly {
+  text-decoration: line-through;
+  text-decoration-color: var(--muted-light);
+  text-decoration-thickness: 1px;
+}
 
 /* Skeleton shimmer for loading states */
 @keyframes shimmer {
