@@ -20,7 +20,7 @@ import {
   fmtGbp,
   suppliersAgree,
 } from "./compare";
-import { extractReceipt } from "./vision";
+import { extractReceipt, extractReceiptFromBuffer } from "./vision";
 
 // Match a row to its bank statement line. Strategy: amount equality (debit
 // magnitude) wins, then date proximity, then supplier overlap as a sanity check.
@@ -385,6 +385,74 @@ function buildVerdict(
     sourceRef,
   };
 }
+
+// Direct entry point used by the API route. The caller (Apps Script) supplies
+// the receipt PDF as bytes plus the bank statement, so the matcher does no
+// filesystem work. Mirrors checkRow's logic but skips findReceiptFile.
+export type CheckRowDirectInput = {
+  row: Row;
+  receipt: { buffer: Buffer; filename: string } | null;
+  statement: StatementLine[];
+  rowsHaveDuplicates?: { matchingRowIndices: number[] };
+};
+
+export async function checkRowDirect(input: CheckRowDirectInput): Promise<CheckResult> {
+  const { row, receipt: receiptInput, statement, rowsHaveDuplicates } = input;
+  const stmtLine = findStatementMatch(row, statement);
+
+  let receipt: ReceiptExtract | null = null;
+  if (receiptInput) {
+    try {
+      receipt = await extractReceiptFromBuffer(receiptInput.buffer);
+    } catch {
+      receipt = null;
+    }
+  }
+
+  const sourceRef = receiptInput
+    ? { file: receiptInput.filename }
+    : stmtLine
+    ? { file: "statement.csv", line: `${stmtLine.date} ${stmtLine.description}` }
+    : null;
+
+  if (rowsHaveDuplicates && rowsHaveDuplicates.matchingRowIndices.length > 0) {
+    if (!receiptInput) {
+      const twin = rowsHaveDuplicates.matchingRowIndices[0];
+      return {
+        verdict: "needs_review",
+        note: `Likely duplicate of row ${twin}. Same supplier (${row.supplier}) and amount ${fmtGbp(row.amount)}, only one bank debit and one receipt for the month.`,
+        sourceRef,
+      };
+    }
+  }
+
+  if (!receiptInput && stmtLine) {
+    if (
+      amountsAgree(Math.abs(stmtLine.amount), row.amount) &&
+      datesAgree(stmtLine.date, row.date) &&
+      suppliersAgree(row.supplier, stmtLine.description)
+    ) {
+      return {
+        verdict: "needs_review",
+        note: `No source document found. Bank confirms ${fmtGbp(row.amount)} on ${fmtDate(stmtLine.date)} (${stmtLine.description}) but a receipt or invoice has not been uploaded.`,
+        sourceRef,
+      };
+    }
+  }
+
+  if (!receiptInput && !stmtLine) {
+    return {
+      verdict: "needs_review",
+      note: `No matching receipt and no bank line found for ${row.supplier} ${fmtGbp(row.amount)} on ${fmtDate(row.date)}. Check the supplier name or upload a receipt.`,
+      sourceRef: null,
+    };
+  }
+
+  return buildVerdict(row, receipt, stmtLine, sourceRef);
+}
+
+// buildVerdict and findStatementMatch live above (kept private originally).
+// Re-export the pieces the direct entry point needs.
 
 // Return true if `entered` looks like a swap of two adjacent digits in `truth`.
 // Example: 89 vs 98, 84.50 vs 48.50.
