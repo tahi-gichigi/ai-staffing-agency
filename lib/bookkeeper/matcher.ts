@@ -11,6 +11,7 @@ import {
   Sources,
   StatementLine,
   ReceiptExtract,
+  ReceiptExtractWithMeta,
 } from "./types";
 import {
   amountsAgree,
@@ -386,22 +387,57 @@ function buildVerdict(
   };
 }
 
-// Direct entry point used by the API route. The caller (Apps Script) supplies
-// the receipt PDF as bytes plus the bank statement, so the matcher does no
-// filesystem work. Mirrors checkRow's logic but skips findReceiptFile.
+// Direct entry point used by the API route. Supplied with whichever receipt
+// representation the caller has on hand:
+//  - `receipt` (raw PDF bytes): the matcher runs vision itself.
+//  - `prematchedExtract` (already OCR'd): skip vision, use directly.
+//  - `availableExtracts` (folder pre-pass): the matcher picks the best-fitting
+//    extract for this row by content. Closest to real-world usage where you
+//    don't know upfront which receipt belongs to which row.
+//  - none of the above: row is checked against the bank statement only.
 export type CheckRowDirectInput = {
   row: Row;
   receipt: { buffer: Buffer; filename: string } | null;
+  prematchedExtract?: { extract: ReceiptExtract; filename: string } | null;
+  availableExtracts?: ReceiptExtractWithMeta[];
   statement: StatementLine[];
   rowsHaveDuplicates?: { matchingRowIndices: number[] };
 };
 
 export async function checkRowDirect(input: CheckRowDirectInput): Promise<CheckResult> {
   const { row, receipt: receiptInput, statement, rowsHaveDuplicates } = input;
+  let { prematchedExtract } = input;
   const stmtLine = findStatementMatch(row, statement);
 
+  // Resolve a receipt for this row. If the caller passed a pre-pass list,
+  // run the row matcher to pick the best fit. Ambiguous cases short-circuit
+  // to a "needs_review: link manually" verdict.
+  let ambiguousReason: string | null = null;
+  if (
+    !prematchedExtract &&
+    !receiptInput &&
+    input.availableExtracts &&
+    input.availableExtracts.length > 0
+  ) {
+    const m = matchRowToExtracts(row, input.availableExtracts);
+    if (m.reason === "matched" && m.match) {
+      prematchedExtract = { extract: m.match, filename: m.match.filename };
+    } else if (m.reason === "ambiguous") {
+      ambiguousReason = `Multiple receipts could match this row (score ${m.confidence}). Rename one of the receipt files, or link manually.`;
+    }
+    // "below_threshold" / "no_extracts" fall through — row gets the no-receipt path.
+  }
+
+  // Whether a receipt is in play (either raw or pre-extracted).
+  const hasReceipt = !!(receiptInput || prematchedExtract);
   let receipt: ReceiptExtract | null = null;
-  if (receiptInput) {
+  let receiptFilename: string | null = null;
+
+  if (prematchedExtract) {
+    receipt = prematchedExtract.extract;
+    receiptFilename = prematchedExtract.filename;
+  } else if (receiptInput) {
+    receiptFilename = receiptInput.filename;
     try {
       receipt = await extractReceiptFromBuffer(receiptInput.buffer);
     } catch {
@@ -409,14 +445,18 @@ export async function checkRowDirect(input: CheckRowDirectInput): Promise<CheckR
     }
   }
 
-  const sourceRef = receiptInput
-    ? { file: receiptInput.filename }
+  const sourceRef = hasReceipt
+    ? { file: receiptFilename || "receipt" }
     : stmtLine
     ? { file: "statement.csv", line: `${stmtLine.date} ${stmtLine.description}` }
     : null;
 
+  if (ambiguousReason) {
+    return { verdict: "needs_review", note: ambiguousReason, sourceRef: null };
+  }
+
   if (rowsHaveDuplicates && rowsHaveDuplicates.matchingRowIndices.length > 0) {
-    if (!receiptInput) {
+    if (!hasReceipt) {
       const twin = rowsHaveDuplicates.matchingRowIndices[0];
       return {
         verdict: "needs_review",
@@ -426,7 +466,7 @@ export async function checkRowDirect(input: CheckRowDirectInput): Promise<CheckR
     }
   }
 
-  if (!receiptInput && stmtLine) {
+  if (!hasReceipt && stmtLine) {
     if (
       amountsAgree(Math.abs(stmtLine.amount), row.amount) &&
       datesAgree(stmtLine.date, row.date) &&
@@ -440,7 +480,7 @@ export async function checkRowDirect(input: CheckRowDirectInput): Promise<CheckR
     }
   }
 
-  if (!receiptInput && !stmtLine) {
+  if (!hasReceipt && !stmtLine) {
     return {
       verdict: "needs_review",
       note: `No matching receipt and no bank line found for ${row.supplier} ${fmtGbp(row.amount)} on ${fmtDate(row.date)}. Check the supplier name or upload a receipt.`,
@@ -453,6 +493,50 @@ export async function checkRowDirect(input: CheckRowDirectInput): Promise<CheckR
 
 // buildVerdict and findStatementMatch live above (kept private originally).
 // Re-export the pieces the direct entry point needs.
+
+// Match a row to one of the receipts in a pre-extracted batch. Score each
+// extract on three independent signals so even a noisy match (e.g. wrong
+// supplier name on the receipt) can still be linked if the amount + date agree.
+// Returns null when no extract scores high enough, or when the top two tie.
+export type MatchRowToExtractsResult = {
+  match: ReceiptExtractWithMeta | null;
+  confidence: number;
+  reason: "matched" | "below_threshold" | "ambiguous" | "no_extracts";
+};
+
+export function matchRowToExtracts(
+  row: Row,
+  extracts: ReceiptExtractWithMeta[]
+): MatchRowToExtractsResult {
+  if (!extracts || extracts.length === 0) {
+    return { match: null, confidence: 0, reason: "no_extracts" };
+  }
+  let bestScore = 0;
+  let secondBest = 0;
+  let best: ReceiptExtractWithMeta | null = null;
+  for (const ex of extracts) {
+    let score = 0;
+    if (ex.supplier && suppliersAgree(row.supplier, ex.supplier)) score += 3;
+    if (ex.totalAmount !== null && ex.totalAmount !== undefined && amountsAgree(ex.totalAmount, row.amount)) score += 2;
+    if (ex.date && daysBetween(ex.date, row.date) <= 3) score += 2;
+    if (score > bestScore) {
+      secondBest = bestScore;
+      bestScore = score;
+      best = ex;
+    } else if (score > secondBest) {
+      secondBest = score;
+    }
+  }
+  // Threshold: need at least one strong signal (supplier+amount, supplier+date,
+  // or amount+date). Score 5 = supplier(3) + amount(2) or supplier(3) + date(2).
+  if (bestScore < 5) {
+    return { match: null, confidence: bestScore, reason: "below_threshold" };
+  }
+  if (bestScore === secondBest) {
+    return { match: null, confidence: bestScore, reason: "ambiguous" };
+  }
+  return { match: best, confidence: bestScore, reason: "matched" };
+}
 
 // Return true if `entered` looks like a swap of two adjacent digits in `truth`.
 // Example: 89 vs 98, 84.50 vs 48.50.

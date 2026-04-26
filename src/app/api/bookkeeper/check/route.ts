@@ -4,7 +4,12 @@
 
 import { NextRequest } from "next/server";
 import { checkRowDirect } from "../../../../../lib/bookkeeper/matcher";
-import { Row, StatementLine } from "../../../../../lib/bookkeeper/types";
+import {
+  ReceiptExtract,
+  ReceiptExtractWithMeta,
+  Row,
+  StatementLine,
+} from "../../../../../lib/bookkeeper/types";
 
 // Vision PDF + Anthropic call needs Node, not Edge.
 export const runtime = "nodejs";
@@ -14,6 +19,12 @@ export const maxDuration = 60;
 type ReqBody = {
   row: Row;
   receipt?: { base64: string; filename: string } | null;
+  // When the caller used /extract-batch and already has an extracted receipt,
+  // they can pass it here so we skip the vision call (cheap fast path).
+  prematchedExtract?: { extract: ReceiptExtract; filename: string } | null;
+  // OR: pass the full pre-pass list and let the server pick which extract
+  // belongs to this row by content match. This is the production path.
+  availableExtracts?: ReceiptExtractWithMeta[];
   statement: StatementLine[];
   rowsHaveDuplicates?: { matchingRowIndices: number[] };
 };
@@ -63,6 +74,8 @@ export async function POST(req: NextRequest) {
     const result = await checkRowDirect({
       row: body.row,
       receipt,
+      prematchedExtract: body.prematchedExtract ?? null,
+      availableExtracts: body.availableExtracts,
       statement: body.statement,
       rowsHaveDuplicates: body.rowsHaveDuplicates,
     });

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 24px; margin: 0; max-width: 480px; }
+    h3 { margin: 0 0 8px 0; }
+    p { color: #555; font-size: 13px; line-height: 1.5; margin: 0 0 16px 0; }
+    label { display: block; font-weight: 600; margin-bottom: 4px; font-size: 13px; }
+    select { width: 100%; padding: 6px; font-size: 14px; margin-bottom: 16px; }
+    button { padding: 8px 16px; font-size: 14px; cursor: pointer; }
+    #status { margin-left: 12px; color: #666; font-size: 13px; }
+    .err { color: #c00; }
+  </style>
+</head>
+<body>
+  <h3>Map sheet columns</h3>
+  <p>Tell the agent which column holds which value. Verdict / Note / Source will be written to the next 3 columns to the right of Description.</p>
+
+  <form id="mapForm">
+    <label for="supplier">Supplier</label>
+    <select name="supplier" id="supplier"></select>
+
+    <label for="date">Date</label>
+    <select name="date" id="date"></select>
+
+    <label for="amount">Amount</label>
+    <select name="amount" id="amount"></select>
+
+    <label for="description">Description</label>
+    <select name="description" id="description"></select>
+
+    <button type="submit">Save mapping</button>
+    <span id="status"></span>
+  </form>
+
+  <script>
+    var headers = <?!= JSON.stringify(headers) ?>;
+    var current = <?!= JSON.stringify(current) ?>;
+
+    function colLetter(n) {
+      // 1-indexed: 1 -> A, 27 -> AA
+      var s = '';
+      while (n > 0) {
+        var r = (n - 1) % 26;
+        s = String.fromCharCode(65 + r) + s;
+        n = Math.floor((n - 1) / 26);
+      }
+      return s;
+    }
+
+    function populateSelect(id) {
+      var sel = document.getElementById(id);
+      headers.forEach(function (h, i) {
+        var opt = document.createElement('option');
+        opt.value = i + 1;
+        opt.textContent = colLetter(i + 1) + ': ' + (h || '(blank)');
+        sel.appendChild(opt);
+      });
+      if (current && current[id]) sel.value = current[id];
+    }
+
+    populateSelect('supplier');
+    populateSelect('date');
+    populateSelect('amount');
+    populateSelect('description');
+
+    document.getElementById('mapForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var mapping = {
+        supplier: parseInt(document.getElementById('supplier').value, 10),
+        date: parseInt(document.getElementById('date').value, 10),
+        amount: parseInt(document.getElementById('amount').value, 10),
+        description: parseInt(document.getElementById('description').value, 10),
+      };
+      var status = document.getElementById('status');
+      status.className = '';
+      status.textContent = 'Saving…';
+      google.script.run
+        .withSuccessHandler(function () {
+          status.textContent = 'Saved.';
+          setTimeout(function () { google.script.host.close(); }, 800);
+        })
+        .withFailureHandler(function (err) {
+          status.className = 'err';
+          status.textContent = 'Error: ' + err.message;
+        })
+        .setMapping(mapping);
+    });
+  </script>
+</body>
+</html>

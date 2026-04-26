@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 20px; margin: 0; font-size: 14px; }
+    h3 { margin: 0 0 8px 0; font-size: 16px; }
+    p { color: #555; line-height: 1.5; margin: 0 0 16px 0; }
+    button { padding: 8px 16px; font-size: 14px; cursor: pointer; }
+    button:disabled { cursor: not-allowed; opacity: 0.5; }
+    #status { margin-top: 14px; color: #666; min-height: 20px; }
+    .err { color: #c00; }
+    details { margin-top: 16px; }
+    summary { cursor: pointer; color: #555; }
+    .fallback-form { margin-top: 12px; }
+    input { width: 100%; padding: 6px; font-size: 13px; box-sizing: border-box; }
+  </style>
+</head>
+<body>
+  <h3>Connect source folder</h3>
+  <p>Pick the Drive folder containing your receipt PDFs and statement.csv.</p>
+  <button id="pickBtn" disabled>Loading Picker…</button>
+  <div id="status"></div>
+
+  <details>
+    <summary>Or paste folder URL/ID manually</summary>
+    <div class="fallback-form">
+      <input id="manualInput" placeholder="https://drive.google.com/drive/folders/..." />
+      <button id="manualBtn" style="margin-top: 6px;">Save</button>
+    </div>
+  </details>
+
+  <!-- Config injected by template. Done as a JSON block so a malformed value
+       can't break script parsing. -->
+  <script id="cfg" type="application/json"><?!= configJson ?></script>
+
+  <script>
+    (function () {
+      var cfg = JSON.parse(document.getElementById('cfg').textContent);
+      var pickerApiLoaded = false;
+      var status = document.getElementById('status');
+      var pickBtn = document.getElementById('pickBtn');
+
+      function setStatus(msg, isErr) {
+        status.textContent = msg;
+        status.className = isErr ? 'err' : '';
+      }
+
+      if (!cfg.apiKey) {
+        pickBtn.textContent = 'API key not set';
+        setStatus('Use Bookkeeper → Set Picker API key first, or use the manual form below.', true);
+      }
+
+      window.onApiLoad = function () {
+        if (!window.gapi) return;
+        gapi.load('picker', {
+          callback: function () {
+            pickerApiLoaded = true;
+            if (cfg.apiKey) {
+              pickBtn.disabled = false;
+              pickBtn.textContent = 'Choose folder…';
+            }
+          }
+        });
+      };
+
+      pickBtn.addEventListener('click', function () {
+        if (!pickerApiLoaded || !cfg.oauthToken || !cfg.apiKey) {
+          setStatus('Picker not ready.', true);
+          return;
+        }
+        var view = new google.picker.DocsView(google.picker.ViewId.FOLDERS)
+          .setIncludeFolders(true)
+          .setSelectFolderEnabled(true)
+          .setMimeTypes('application/vnd.google-apps.folder');
+        var builder = new google.picker.PickerBuilder()
+          .addView(view)
+          .setOAuthToken(cfg.oauthToken)
+          .setDeveloperKey(cfg.apiKey)
+          .setCallback(function (data) {
+            if (data.action === google.picker.Action.PICKED) {
+              var folder = data.docs[0];
+              setStatus('Saving "' + folder.name + '"…');
+              google.script.run
+                .withSuccessHandler(function () {
+                  setStatus('Folder saved. Closing…');
+                  setTimeout(function () { google.script.host.close(); }, 600);
+                })
+                .withFailureHandler(function (err) { setStatus('Error: ' + err.message, true); })
+                .setFolderFromPicker(folder.id);
+            }
+          });
+        builder.build().setVisible(true);
+      });
+
+      document.getElementById('manualBtn').addEventListener('click', function () {
+        var raw = document.getElementById('manualInput').value.trim();
+        if (!raw) { setStatus('Paste a folder URL or ID first.', true); return; }
+        var m = raw.match(/[-\w]{25,}/);
+        var id = m ? m[0] : raw;
+        setStatus('Saving…');
+        google.script.run
+          .withSuccessHandler(function () {
+            setStatus('Folder saved. Closing…');
+            setTimeout(function () { google.script.host.close(); }, 600);
+          })
+          .withFailureHandler(function (err) { setStatus('Error: ' + err.message, true); })
+          .setFolderFromPicker(id);
+      });
+    })();
+  </script>
+  <script src="https://apis.google.com/js/api.js?onload=onApiLoad"></script>
+</body>
+</html>

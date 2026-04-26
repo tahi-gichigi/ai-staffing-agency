@@ -23,6 +23,13 @@ export type ReceiptExtract = {
   illegible?: boolean;
 };
 
+// ReceiptExtract enriched with the source file metadata it came from. Used by
+// the content-based row matcher to decide which receipt belongs to which row.
+export type ReceiptExtractWithMeta = ReceiptExtract & {
+  fileId: string;
+  filename: string;
+};
+
 export type SourceRef = {
   file: string;
   page?: number;
