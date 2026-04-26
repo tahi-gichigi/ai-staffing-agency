@@ -9,6 +9,10 @@
 import { NextRequest } from "next/server";
 import { extractReceiptFromBuffer } from "../../../../../lib/bookkeeper/vision";
 import { ReceiptExtractWithMeta } from "../../../../../lib/bookkeeper/types";
+import {
+  assertNotKilled,
+  KillSwitchError,
+} from "../../../../../lib/bookkeeper/kill-switch";
 
 export const runtime = "nodejs";
 // 18 PDFs × ~5s cold = 90s, but we run them in parallel so ~10s real time.
@@ -39,6 +43,15 @@ export async function POST(req: NextRequest) {
   const auth = req.headers.get("authorization") ?? "";
   const got = auth.startsWith("Bearer ") ? auth.slice(7) : "";
   if (got !== expected) return unauthorized("invalid bearer token");
+
+  try {
+    await assertNotKilled();
+  } catch (e) {
+    if (e instanceof KillSwitchError) {
+      return Response.json({ error: e.message }, { status: 503 });
+    }
+    throw e;
+  }
 
   let body: ReqBody;
   try {

@@ -17,8 +17,10 @@ const REPO_ROOT = path.resolve(__dirname, "../..");
 const FIXTURES_PDF_DIR = path.join(REPO_ROOT, "bookkeeper-fixtures");
 const FIXTURES_DATA_DIR = path.join(REPO_ROOT, "fixtures/bookkeeper");
 
-// Ground truth: row indices (1-based) of the 9 seeded errors.
-const SEEDED_ERROR_ROWS = [8, 11, 12, 25, 31, 32, 38, 42, 44];
+// Ground truth: row indices (1-based) of seeded errors in the trimmed demo fixture.
+// Row 4 amount mismatch (Amazon USB hub), row 5 digit transposition (Premier Inn),
+// row 10 date off by 1 (Costa Coffee), row 14 wrong supplier (Whittard vs Monmouth).
+const SEEDED_ERROR_ROWS = [4, 5, 10, 14];
 
 async function loadRows(): Promise<Row[]> {
   const text = await fs.readFile(path.join(FIXTURES_DATA_DIR, "rows.csv"), "utf8");

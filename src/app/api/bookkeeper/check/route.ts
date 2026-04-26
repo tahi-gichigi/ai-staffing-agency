@@ -10,6 +10,10 @@ import {
   Row,
   StatementLine,
 } from "../../../../../lib/bookkeeper/types";
+import {
+  assertNotKilled,
+  KillSwitchError,
+} from "../../../../../lib/bookkeeper/kill-switch";
 
 // Vision PDF + Anthropic call needs Node, not Edge.
 export const runtime = "nodejs";
@@ -48,6 +52,15 @@ export async function POST(req: NextRequest) {
   const auth = req.headers.get("authorization") ?? "";
   const got = auth.startsWith("Bearer ") ? auth.slice(7) : "";
   if (got !== expected) return unauthorized("invalid bearer token");
+
+  try {
+    await assertNotKilled();
+  } catch (e) {
+    if (e instanceof KillSwitchError) {
+      return Response.json({ error: e.message }, { status: 503 });
+    }
+    throw e;
+  }
 
   let body: ReqBody;
   try {
